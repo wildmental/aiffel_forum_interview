@@ -2,10 +2,9 @@ from django.contrib.auth.models import User
 from question.models import Question, Comment
 from rest_framework.test import APIClient
 
+
 # 단위테스트
 # 1. 질문을 데이터베이스에 저장, 수정, 삭제하는 API 개발
-
-
 # 질문 저장
 def create_question():
     client = APIClient()
@@ -33,12 +32,12 @@ def delete_question():
 
 
 # 2. 질문의 댓글을 데이터베이스에 저장하는 API 개발
-def comment_create():
+def create_comment():
     pass
 
 
 # 3. 질문에 달린 댓글 목록을 출력하는 API 개발
-def read_comment_list_from_question():
+def comment_list_from_question():
     pass
 
 
@@ -50,3 +49,13 @@ def search_question_by_keyword():
 # 5. 질문 작성일 기준 각 월별 전체 질문 중에서 가장 좋아요가 많은 질문을 출력하는 API 개발
 def monthly_best_question():
     pass
+
+
+# ## django shell - test script ##
+# from question import unit_tests
+# unit_tests.create_question()
+# unit_tests.update_question()
+# unit_tests.delete_question()
+# unit_tests.comment_list_from_question()
+# unit_tests.search_question_by_keyword()
+# unit_tests.monthly_best_question()

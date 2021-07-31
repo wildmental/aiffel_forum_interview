@@ -9,6 +9,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    pagination_class = PageNumberPagination
 
 
 class CommentViewSet(viewsets.ModelViewSet):
