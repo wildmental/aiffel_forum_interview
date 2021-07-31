@@ -19,7 +19,7 @@ def create_question():
         'content': 'contents for question no.' + str(new_id),
         'user': test_user.id
     }
-    return client.post('localhost:8000/question/', question, format='json')
+    return client.post('http://localhost:8000/questions/', question, format='json')
 
 
 # 질문 수정
