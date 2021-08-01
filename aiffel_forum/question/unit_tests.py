@@ -21,7 +21,8 @@ def create_question():
         'content': f'contents for question no.{new_id}',
         'user': test_user.id
     }
-    return client.post('http://localhost:8000/questions/', new_question, format='json')
+    res = client.post('http://localhost:8000/questions/', new_question, format='json')
+    print(res)
 
 
 # 질문 수정
@@ -31,12 +32,14 @@ def update_question(question_id):
         'content': f'updated contents for question no.{question_id}',
         'user': test_user.id
     }
-    return client.put(f'http://localhost:8000/questions/{question_id}/', update_data, format='json')
+    res = client.put(f'http://localhost:8000/questions/{question_id}/', update_data, format='json')
+    print(res)
 
 
 # 질문 삭제
 def delete_question(question_id):
-    return client.delete(f'http://localhost:8000/questions/{question_id}/', format='json')
+    res = client.delete(f'http://localhost:8000/questions/{question_id}/', format='json')
+    print(res)
 
 
 # 2. 질문의 댓글을 데이터베이스에 저장하는 API 개발
@@ -48,13 +51,14 @@ def create_comment(question_id):
         'content': f'comment no.{comment_num} for question no.{question_id}',
         'user': test_user.id
     }
-    return client.post('http://localhost:8000/comments/', new_comment, format='json')
+    res = client.post('http://localhost:8000/comments/', new_comment, format='json')
+    print(res)
 
 
 # 3. 질문에 달린 댓글 목록을 출력하는 API 개발
 def comment_list_from_question(question_id):
-    return client.get(f'http://localhost:8000/questions/{question_id}/comments/', format='json')
-
+    res = client.get(f'http://localhost:8000/questions/{question_id}/comments/', format='json')
+    print(res)
 
 # 4. 키워드로 질문의 제목 또는 본문내용을 검색하는 API 개발
 def create_dummy_question_for_search():
@@ -62,11 +66,13 @@ def create_dummy_question_for_search():
                        {'title': f'AIFFEL', 'content': f'aiffel', 'user': test_user.id},
                        {'title': f'백엔드 엔지니어', 'content': f'백엔드엔지니어', 'user': test_user.id}]
     for new_question in dummy_questions:
-        client.post('http://localhost:8000/questions/', new_question, format='json')
+        res = client.post('http://localhost:8000/questions/', new_question, format='json')
+        print(res)
 
 
 def search_question_by_keyword(t_key, c_key):
-    return client.get(f'http://localhost:8000/questions/?title_key={t_key}&content_key={c_key}/', format='json')
+    res = client.get(f'http://localhost:8000/questions/?title_key={t_key}&content_key={c_key}', format='json')
+    print(res)
 
 
 # 5. 질문 작성일 기준 각 월별 전체 질문 중에서 가장 좋아요가 많은 질문을 출력하는 API 개발
@@ -74,7 +80,8 @@ def search_question_by_keyword(t_key, c_key):
 def like_question(question_id):
     client.extra = {'request': client.request()}
     client.extra['request'].user = test_user
-    return client.post(f'http://localhost:8000/questions/{question_id}/like/', format='json')
+    res = client.post(f'http://localhost:8000/questions/{question_id}/like/', format='json')
+    print(res)
 
 
 # 5-2. 더미 데이터 생성
@@ -105,7 +112,7 @@ def create_dummy_questions():
 
 
 def create_dummy_comments():
-    # 질문마다 0 ~ 100 개의 코멘트 생성
+    # 질문마다 0 ~ 100개 랜덤 개수의 코멘트 생성
     questions = Question.objects.all()
     for question in questions:
         bulk_comment = []
@@ -122,7 +129,7 @@ def create_dummy_comments():
 def create_dummy_likes():
     questions = Question.objects.all()
     for question in questions:
-        # 질문마다 0 ~ 100개 랜덤 좋아요 생성
+        # 질문마다 0 ~ 100개 랜덤 개수의 좋아요 생성
         random_like_cnt = random.randint(1, 101)
         for like_user in User.objects.filter(id__lt=random_like_cnt):
             client.force_authenticate(user=like_user)
