@@ -22,7 +22,7 @@ def create_question():
         'user': test_user.id
     }
     res = client.post('http://localhost:8000/questions/', new_question, format='json')
-    print(res)
+    print(res, res.data)
 
 
 # 질문 수정
@@ -33,13 +33,13 @@ def update_question(question_id):
         'user': test_user.id
     }
     res = client.put(f'http://localhost:8000/questions/{question_id}/', update_data, format='json')
-    print(res)
+    print(res, res.data)
 
 
 # 질문 삭제
 def delete_question(question_id):
     res = client.delete(f'http://localhost:8000/questions/{question_id}/', format='json')
-    print(res)
+    print(res, res.data)
 
 
 # 2. 질문의 댓글을 데이터베이스에 저장하는 API 개발
@@ -51,14 +51,14 @@ def create_comment(question_id):
         'content': f'comment no.{comment_num} for question no.{question_id}',
         'user': test_user.id
     }
-    res = client.post('http://localhost:8000/comments/', new_comment, format='json')
-    print(res)
+    res = client.post(f'http://localhost:8000/questions/{question_id}/comments/', new_comment, format='json')
+    print(res, res.data)
 
 
 # 3. 질문에 달린 댓글 목록을 출력하는 API 개발
 def comment_list_from_question(question_id):
     res = client.get(f'http://localhost:8000/questions/{question_id}/comments/', format='json')
-    print(res)
+    print(res, res.data)
 
 # 4. 키워드로 질문의 제목 또는 본문내용을 검색하는 API 개발
 def create_dummy_question_for_search():
@@ -67,12 +67,12 @@ def create_dummy_question_for_search():
                        {'title': f'백엔드 엔지니어', 'content': f'백엔드엔지니어', 'user': test_user.id}]
     for new_question in dummy_questions:
         res = client.post('http://localhost:8000/questions/', new_question, format='json')
-        print(res)
+        print(res, res.data)
 
 
 def search_question_by_keyword(t_key, c_key):
     res = client.get(f'http://localhost:8000/questions/?title_key={t_key}&content_key={c_key}', format='json')
-    print(res)
+    print(res, res.data)
 
 
 # 5. 질문 작성일 기준 각 월별 전체 질문 중에서 가장 좋아요가 많은 질문을 출력하는 API 개발
@@ -81,7 +81,7 @@ def like_question(question_id):
     client.extra = {'request': client.request()}
     client.extra['request'].user = test_user
     res = client.post(f'http://localhost:8000/questions/{question_id}/like/', format='json')
-    print(res)
+    print(res, res.data)
 
 
 # 5-2. 더미 데이터 생성
@@ -139,7 +139,7 @@ def create_dummy_likes():
 # 5-3. 월별 베스트 질문 리스트
 def monthly_best_questions():
     res = client.get(f'http://localhost:8000/questions/monthly_best/', format='json')
-    print(res)
+    print(res, res.data)
 
 # ------------------------------------------ #
 # ## test script ##
