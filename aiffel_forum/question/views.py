@@ -62,7 +62,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
             else title_search if title_key else content_search if content_key else None
 
         if search_res is None:
-            return Response({'message': "search keyword is required"})
+            return Response({'message': "search keyword is required"}, status=status.HTTP_400_BAD_REQUEST)
 
         res_data = self.serializer_class(search_res, many=True).data
         return Response(res_data)
