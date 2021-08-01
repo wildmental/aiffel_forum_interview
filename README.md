@@ -56,7 +56,7 @@
     - 질문별 댓글 
       - http://127.0.0.1:8000/questions/1/comments/ (~ 1000)
     - 댓글 상세 
-      - http://127.0.0.1:8000/questions/<any>/comments/1/ (~ 49500)
+      - http://127.0.0.1:8000/questions/any/comments/1/ (~ 49500)
     - 키워드 질문 검색 
       - http://127.0.0.1:8000/questions/find/
       - http://127.0.0.1:8000/questions/find/?title_key=모두&content_key=백엔드
