@@ -144,6 +144,7 @@ def monthly_best_questions():
 # ------------------------------------------ #
 # ## test script ##
 
+# python manage.py shell
 # from question import unit_tests
 
 # Question CRUD

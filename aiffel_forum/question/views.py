@@ -2,7 +2,7 @@ import os
 import sqlite3
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import ObjectDoesNotExist
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from rest_framework.pagination import PageNumberPagination
@@ -25,7 +25,7 @@ class QuestionViewSet(viewsets.ModelViewSet):
 
         if user.is_anonymous:
             res_msg = {'message': 'Authentication is needed to like questions'}
-            return Response(res_msg)
+            return Response(res_msg, status=status.HTTP_400_BAD_REQUEST)
 
         try:
             like_users.get(id=user.id)
